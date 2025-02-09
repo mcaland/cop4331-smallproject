@@ -7,7 +7,7 @@ $password = $inData["password"];
 $userID = 0;
 
 // Connect to the database
-$conn = new mysqli("localhost", "USERNAME HERE", "PASSWORD HERE", "DATABASE NAME HERE");
+$conn = new mysqli("localhost", "admin", "Password!", "SmallProj");
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
