@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
     // Add the new user to the database
-    $stmt = $conn->prepare("INSERT INTO Users (username, password) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO Users (username, password) VALUES (?, ?) RETURNING userID, username");
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();
