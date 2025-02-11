@@ -9,10 +9,10 @@ function login()
 {
     id = 0;
 
-    user = document.getElementById("userField").value;
-    pass = document.getElementById("passField").value;
+    username = document.getElementById("userField").value;
+    password = document.getElementById("passField").value;
 
-    let credentials = {user:user, pass:pass};
+    let credentials = {username:username, password:password};
     let jsonPayload = JSON.stringify(credentials);
 
     let URL = baseURL + "/Login." + extension;
