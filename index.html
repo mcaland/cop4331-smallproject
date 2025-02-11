@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Manager - Login</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/code.js"></script>
 </head>
 <body>
     <div class="login-container">
         <h1>Contact Manager</h1>
-        <form action="API/Login.php" method="POST" class="login-form">
+        <form action="" method="POST" class="login-form">
             <input type="text" id="userField" name="username" placeholder="Username" required>
             <input type="password" id="passField" name="password" placeholder="Password" required>
-            <button type="submit" onclick="">Login</button>
+            <button type="submit" onclick="login();">Login</button>
         </form>
         <p>Don't have an account? <a href="register.html">Register Here</a></p>
         <p id="loginStatusTest">Not logged in</p>
