@@ -45,6 +45,7 @@ function login()
     }
     catch (error)
     {
+        window.location.href = "index.html";
         document.getElementById("loginStatusTest").innerHTML = error.message;
     }
 }
