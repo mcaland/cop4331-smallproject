@@ -9,12 +9,13 @@
 <body>
     <div class="login-container">
         <h1>Contact Manager</h1>
-        <form action="API/login.php" method="POST" class="login-form">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+        <form action="API/Login.php" method="POST" class="login-form">
+            <input type="text" id="userField" name="username" placeholder="Username" required>
+            <input type="password" id="passField" name="password" placeholder="Password" required>
+            <button type="submit" onclick="login();">Login</button>
         </form>
         <p>Don't have an account? <a href="register.html">Register Here</a></p>
+        <p id="loginStatusTest">Not logged in</p>
     </div>
 </body>
 </html>
