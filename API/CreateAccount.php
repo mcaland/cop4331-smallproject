@@ -11,6 +11,19 @@ $conn = new mysqli("localhost", "admin", "Password!", "SmallProj");
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
+    // Check if the username is already taken
+    $stmt = $conn->prepare("SELECT userID FROM Users WHERE username=?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Return an error if the username is already taken
+    if ($row = $result->fetch_assoc()) {
+        returnWithError("Username Already Taken");
+    }
+
+    $stmt->close();
+
     // Add the new user to the database
     $stmt = $conn->prepare("INSERT INTO Users (username, password) VALUES (?, ?) RETURNING userID, username");
     $stmt->bind_param("ss", $username, $password);
