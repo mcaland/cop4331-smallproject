@@ -38,14 +38,14 @@ function login()
                     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
                 }
 
-                window.location.href = "index.html";
+                //window.location.href = "index.html";
             }
         }
         request.send(jsonPayload);
     }
     catch (error)
     {
-        window.location.href = "index.html";
+        //window.location.href = "index.html";
         document.getElementById("loginStatusTest").innerHTML = error.message;
     }
 }
