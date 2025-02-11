@@ -37,8 +37,11 @@ function login()
                 {
                     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
                 }
+
+                window.location.href = "index.html";
             }
         }
+        request.send(jsonPayload);
     }
     catch (error)
     {
