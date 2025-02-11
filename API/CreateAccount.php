@@ -56,10 +56,12 @@ function returnWithError($err)
 {
     $retValue = '{"userID":0,"username":"","error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
+    exit();
 }
 
 function returnWithInfo($userID, $username)
 {
     $retValue = '{"userID":' . $userID . ',"username":"' . $username . '","error":""}';
     sendResultInfoAsJson($retValue);
+    exit();
 }
