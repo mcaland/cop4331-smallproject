@@ -18,8 +18,11 @@ if ($conn->connect_error) {
     $result = $stmt->get_result();
 
     // Return an error if the username is already taken
-    if ($row = $result->fetch_assoc()) {
+    if ($result->num_rows > 0) {
         returnWithError("Username Already Taken");
+        $stmt->close();
+        $conn->close();
+        die();
     }
 
     $stmt->close();
@@ -50,18 +53,17 @@ function sendResultInfoAsJson($obj)
 {
     header('Content-type: application/json');
     echo $obj;
+    exit();
 }
 
 function returnWithError($err)
 {
     $retValue = '{"userID":0,"username":"","error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
-    exit();
 }
 
 function returnWithInfo($userID, $username)
 {
     $retValue = '{"userID":' . $userID . ',"username":"' . $username . '","error":""}';
     sendResultInfoAsJson($retValue);
-    exit();
 }
