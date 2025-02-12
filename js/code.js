@@ -9,8 +9,8 @@ function login()
 {
     id = 0;
 
-    let username = document.getElementById("userField").value;
-    let assword = document.getElementById("passField").value;
+    username = document.getElementById("userField").value;
+    password = document.getElementById("passField").value;
 
     let credentials = {username:username, password:password};
     let jsonPayload = JSON.stringify(credentials);
@@ -29,16 +29,18 @@ function login()
                 let jsonObj = JSON.parse(request.responseText);
                 id = jsonObj.userID;
 
-                if (id < 1)
-                {
-                    document.getElementById("loginStatusTest").innerHTML = "Login error";
-                    return;
-                }
-                else
-                {
-                    document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
-                    return;
-                }
+                document.getElementById("loginStatusTest").innerHTML = request.responseText;
+
+                // if (id < 1)
+                // {
+                //     document.getElementById("loginStatusTest").innerHTML = "Login error";
+                //     return;
+                // }
+                // else
+                // {
+                //     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
+                //     return;
+                // }
             }
         };
         request.send(jsonPayload);
