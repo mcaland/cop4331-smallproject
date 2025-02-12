@@ -1,16 +1,14 @@
-const baseURL = "http://smallproject.maudxd.online/API"
-const extension = "php"
+const baseURL = "http://smallproject.maudxd.online/API";
+const extension = "php";
 
 let id = 0;
-let username = "";
-let password = "";
 
 function login()
 {
     id = 0;
 
-    username = document.getElementById("userField").value;
-    password = document.getElementById("passField").value;
+    let username = document.getElementById("userField").value;
+    let password = document.getElementById("passField").value;
 
     let credentials = {username:username, password:password};
     let jsonPayload = JSON.stringify(credentials);
@@ -29,18 +27,16 @@ function login()
                 let jsonObj = JSON.parse(request.responseText);
                 id = jsonObj.userID;
 
-                document.getElementById("loginStatusTest").innerHTML = request.responseText;
-
-                // if (id < 1)
-                // {
-                //     document.getElementById("loginStatusTest").innerHTML = "Login error";
-                //     return;
-                // }
-                // else
-                // {
-                //     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
-                //     return;
-                // }
+                if (id < 1)
+                {
+                    document.getElementById("loginStatusTest").innerHTML = "Login error";
+                    return;
+                }
+                else
+                {
+                    document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
+                    return;
+                }
             }
         };
         request.send(jsonPayload);
