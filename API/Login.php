@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 	if ($row = $result->fetch_assoc()) {
 		returnWithInfo($row['userID'], $row['username']);
 	} else {
-		returnWithError("No User Found");
+		returnWithError("No User Found with Matching Credentials");
 	}
 
 	$stmt->close();

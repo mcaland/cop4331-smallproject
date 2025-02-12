@@ -29,7 +29,8 @@ function login()
 
                 if (id < 1)
                 {
-                    document.getElementById("loginStatusTest").innerHTML = "Login error";
+                    let error = jsonObj.error;
+                    document.getElementById("loginStatusTest").innerHTML = error;
                     return;
                 }
                 else
