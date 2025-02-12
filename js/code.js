@@ -2,15 +2,15 @@ const baseURL = "http://smallproject.maudxd.online/API"
 const extension = "php"
 
 let id = 0;
-let user = "";
-let pass = "";
+let username = "";
+let password = "";
 
 function login()
 {
     id = 0;
 
-    username = document.getElementById("userField").value;
-    password = document.getElementById("passField").value;
+    let username = document.getElementById("userField").value;
+    let assword = document.getElementById("passField").value;
 
     let credentials = {username:username, password:password};
     let jsonPayload = JSON.stringify(credentials);
@@ -32,20 +32,19 @@ function login()
                 if (id < 1)
                 {
                     document.getElementById("loginStatusTest").innerHTML = "Login error";
+                    return;
                 }
                 else
                 {
                     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
+                    return;
                 }
-
-                //window.location.href = "index.html";
             }
-        }
+        };
         request.send(jsonPayload);
     }
     catch (error)
     {
-        //window.location.href = "index.html";
         document.getElementById("loginStatusTest").innerHTML = error.message;
     }
 }
