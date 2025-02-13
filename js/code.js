@@ -6,7 +6,7 @@ let contactID = 0;
 
 function cache_id_as_cookie()
 {
-    document.cookie = "userID=" + id + ", contactID=" + contactID;
+    document.cookie = "userID=" + id + "; contactID=" + contactID;
 }
 
 function clear_cookie()
@@ -93,7 +93,7 @@ function register() {
 
 function search()
 {
-    id = parseInt(document.cookie.split(",")[0].split("=")[1]);
+    id = parseInt(document.cookie.split(";")[0].split("=")[1]);
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -123,7 +123,7 @@ function search()
 
 function add_contact()
 {
-    id = parseInt(document.cookie.split(",")[0].split("=")[1]);
+    id = parseInt(document.cookie.split(";")[0].split("=")[1]);
     let addRequest = { userID: id, name: document.getElementById("name").value, email: document.getElementById("email").value, phoneNum: document.getElementById("phone").value };
     let jsonPayload = JSON.stringify(addRequest);
 
@@ -159,7 +159,7 @@ function load_contact(parentID)
 
 function edit_contact()
 {
-    let contactID = id = parseInt(document.cookie.split(",")[1].split("=")[1]);;
+    let contactID = id = parseInt(document.cookie.split(";")[1].split("=")[1]);;
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
