@@ -3,8 +3,7 @@ const extension = "php";
 
 let id = 0;
 
-function login()
-{
+function login() {
     id = 0;
 
     let username = document.getElementById("userField").value;
@@ -30,7 +29,8 @@ function login()
                     return;
                 }
                 else {
-                    document.getElementById("error-message").innerHTML = "Successful login with ID " + id;
+                    document.getElementById("error-message").innerHTML = "Logged in!";
+                    window.location.href = "contacts.html";
                     return;
                 }
             }
@@ -42,8 +42,7 @@ function login()
     }
 }
 
-function register()
-{
+function register() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
