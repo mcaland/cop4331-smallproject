@@ -27,7 +27,7 @@ if ($conn->connect_error) {
             $searchResults .= ",";
         }
         $searchCount++;
-        $searchResults .= '"' . $row["contactID"] . " " . $row["name"] . " " . $row["email"] . " " . $row["phoneNum"] . '"';
+        $searchResults .= '"' . $row["contactID"] . ";" . $row["name"] . ";" . $row["email"] . ";" . $row["phoneNum"] . '"';
     }
 
     if ($searchCount == 0) {

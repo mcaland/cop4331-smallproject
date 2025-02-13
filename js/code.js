@@ -94,7 +94,6 @@ function register() {
 function search()
 {
     id = parseInt(document.cookie.split(";")[0].split("=")[1].trim());
-    console.log(id);
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -109,9 +108,20 @@ function search()
                 let jsonObj = JSON.parse(request.responseText);
                 document.getElementById("contactsTableBody").innerHTML = "";
 
-                for (let i = 0; i < jsonObj.length; i++)
+                for (let i = 0; i < jsonObj.results.length; i++)
                 {
-                    document.getElementById("contactsTableBody").innerHTML += "<tr id=\"" + jsonObj[i].split(" ")[0] + "\"> <td>" + jsonObj[i].split(" ")[1] + "</td> <td>" + jsonObj[i].split(" ")[2] + "</td> <td>" + jsonObj[i].split(" ")[3] + "</td> <td><button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button><td>";
+                    let row = document.getElementById("contactsTableBody").insertRow()
+                    row.id = parseInt(jsonObj.results[i].split(";")[0].trim());
+
+                    let nameCell = row.insertCell(0);
+                    let emailCell = row.insertCell(1);
+                    let phoneCell = row.insertCell(2);
+                    let actionCell = row.insertCell(3);
+
+                    nameCell.innerHTML = jsonObj.results[i].split(";")[1].trim();
+                    emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
+                    phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
+                    actionCell.innerHTML = "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>";
                 }
             }
         };
@@ -148,7 +158,7 @@ function add_contact()
         request.send(jsonPayload);
     }
     catch (error) {
-        console.log(error.message);
+        document.getElementById("error-message").innerHTML = error.message;
     }
 }
 
