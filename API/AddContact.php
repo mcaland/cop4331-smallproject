@@ -26,6 +26,8 @@ if ($conn->connect_error) {
     } else {
         returnWithError("Error Creating Contact");
     }
+    $stmt->close();
+    $conn->close();
 }
 
 // FUNCTIONS
