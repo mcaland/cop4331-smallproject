@@ -2,10 +2,11 @@ const baseURL = "http://smallproject.maudxd.online/API";
 const extension = "php";
 
 let id = 0;
+let contactID = 0;
 
 function cache_id_as_cookie()
 {
-    document.cookie = "userID=" + id;
+    document.cookie = "userID=" + id + ", contactID" + contactID;
 }
 
 function clear_cookie()
@@ -92,7 +93,7 @@ function register() {
 
 function search()
 {
-    id = parseInt(document.cookie.split("=")[1]);
+    id = parseInt(document.cookie.split(",")[0].split("=")[1]);
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -109,7 +110,7 @@ function search()
 
                 for (let i = 0; i < jsonObj.length; i++)
                 {
-                    document.getElementById("contactsTableBody").innerHTML += "<tr id=\"" + jsonObj[i].split(" ")[0] + "\"> <td>" + jsonObj[i].split(" ")[1] + "</td> <td>" + jsonObj[i].split(" ")[2] + "</td> <td>" + jsonObj[i].split(" ")[3] + "</td> <td> Actions go here... <td>";
+                    document.getElementById("contactsTableBody").innerHTML += "<tr id=\"" + jsonObj[i].split(" ")[0] + "\"> <td>" + jsonObj[i].split(" ")[1] + "</td> <td>" + jsonObj[i].split(" ")[2] + "</td> <td>" + jsonObj[i].split(" ")[3] + "</td> <td><button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button><td>";
                 }
             }
         };
@@ -122,8 +123,8 @@ function search()
 
 function add_contact()
 {
-    id = parseInt(document.cookie.split("=")[1]);
-    let addRequest = { userID: id, name: document.getElementById("editName").value, email: document.getElementById("editEmail").value, phoneNum: document.getElementById("editPhone").value };
+    id = parseInt(document.cookie.split(",")[0].split("=")[1]);
+    let addRequest = { userID: id, name: document.getElementById("name").value, email: document.getElementById("email").value, phoneNum: document.getElementById("phone").value };
     let jsonPayload = JSON.stringify(addRequest);
 
     let URL = baseURL + "/AddContact." + extension;
@@ -150,3 +151,38 @@ function add_contact()
     }
 }
 
+function load_contact(parentID)
+{
+    contactID = parentID;
+    cache_id_as_cookie();
+}
+
+function edit_contact()
+{
+    let contactID = id = parseInt(document.cookie.split(",")[1].split("=")[1]);;
+    let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
+    let jsonPayload = JSON.stringify(editRequest);
+
+    let URL = baseURL + "/ModifyContact." + extension;
+
+    let request = new XMLHttpRequest();
+    request.open("POST", URL, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObj = JSON.parse(request.responseText);
+                document.getElementById("contactsTableBody").innerHTML = "";
+
+                // TODO: error on modal if it doesn't edit
+
+                search(); // update list just in case
+                return;
+            }
+        };
+        request.send(jsonPayload);
+    }
+    catch (error) {
+        document.getElementById("error-message").innerHTML = error.message;
+    }
+}
