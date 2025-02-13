@@ -170,7 +170,8 @@ function load_contact(parentID)
 
 function edit_contact()
 {
-    let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());;
+    let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    console.log(contactID);
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
