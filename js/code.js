@@ -24,7 +24,8 @@ function login() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    document.getElementById("error-message").innerHTML = "User/Password combination incorrect";
+                    error = jsonObj.error;
+                    document.getElementById("error-message").innerHTML = error;
                     return;
                 }
                 else {
