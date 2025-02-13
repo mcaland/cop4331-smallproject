@@ -3,6 +3,16 @@ const extension = "php";
 
 let id = 0;
 
+function cache_id_as_cookie()
+{
+    document.cookie = "userID=" + id;
+}
+
+function clear_cookie()
+{
+    document.cookie = "";
+}
+
 function login() {
     id = 0;
 
@@ -29,6 +39,7 @@ function login() {
                     return;
                 }
                 else {
+                    cache_id_as_cookie();
                     document.getElementById("error-message").innerHTML = "Logged in!";
                     window.location.href = "contacts.html";
                     return;
@@ -81,6 +92,7 @@ function register() {
 
 function search()
 {
+    id = parseInt(document.cookie.split("=")[1]);
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -110,6 +122,7 @@ function search()
 
 function add_contact()
 {
+    id = parseInt(document.cookie.split("=")[1]);
     let addRequest = { userID: id, name: document.getElementById("editName").value, email: document.getElementById("editEmail").value, phoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(addRequest);
 
