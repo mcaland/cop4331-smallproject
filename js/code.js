@@ -6,7 +6,7 @@ let contactID = 0;
 
 function cache_id_as_cookie()
 {
-    document.cookie = "userID=" + id + ", contactID" + contactID;
+    document.cookie = "userID=" + id + ", contactID=" + contactID;
 }
 
 function clear_cookie()
@@ -147,7 +147,7 @@ function add_contact()
         request.send(jsonPayload);
     }
     catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
+        console.log(error.message);
     }
 }
 
