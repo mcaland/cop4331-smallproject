@@ -8,19 +8,20 @@
 
 /* Body Styling */
 body {
-    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    background-color: #121212;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #FFFFFF;
 }
 
 /* Login Container */
 .login-container {
-    background: white;
+    background: #1e1e1e;
     padding: 30px 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     text-align: center;
     width: 300px;
 }
@@ -28,7 +29,7 @@ body {
 /* Header */
 .login-container h1 {
     margin-bottom: 20px;
-    color: #333;
+    color: #FFFFFF;
 }
 
 /* Form Styling */
@@ -36,22 +37,24 @@ body {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     border-radius: 8px;
     outline: none;
+    background-color: #2c2c2c;
+    color: #FFFFFF;
     transition: 0.3s;
 }
 
 .login-form input:focus {
-    border-color: #74ebd5;
-    box-shadow: 0 0 8px rgba(116, 235, 213, 0.5);
+    border-color: #4A90E2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
 }
 
 /* Button Styling */
 .login-form button {
     width: 100%;
     padding: 12px;
-    background-color: #74ebd5;
+    background-color: #4A90E2;
     color: white;
     border: none;
     border-radius: 8px;
@@ -61,22 +64,28 @@ body {
 }
 
 .login-form button:hover {
-    background-color: #4dc9c3;
+    background-color: #357ABD;
 }
 
 /* Link Styling */
 .login-container p {
     margin-top: 15px;
     font-size: 14px;
-    color: #555;
+    color: #BBBBBB;
 }
 
 .login-container a {
-    color: #74ebd5;
+    color: #4A90E2;
     text-decoration: none;
     font-weight: bold;
 }
 
 .login-container a:hover {
     text-decoration: underline;
+}
+
+/* Error Styling */
+.error-message {
+    color: #FF0000;
+    margin-top: 10px;
 }
