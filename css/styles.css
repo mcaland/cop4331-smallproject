@@ -84,3 +84,8 @@ body {
     text-decoration: underline;
 }
 
+/* Error Styling */
+.error-message {
+    color: #FF0000;
+    margin-top: 10px;
+}
