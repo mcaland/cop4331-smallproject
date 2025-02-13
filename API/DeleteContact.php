@@ -1,20 +1,19 @@
 <?php
 
 // Retrieve data
-$userID = $inData["userID"];
-
-// Just need to retrive the userID for deleteing a contact
-$userID = $inData["userID"];
+$inData = getRequestInfo();
+// Just need to retrive the contactID for deleteing a contact
+$contactID = $inData["contactID"];
 
 // Connect to database and checking connection
 $conn = new mysqli("localhost", "admin","Password!", "SmallProj");
 
 if ($conn->connect_error) {
-    returnWithError($conn -> connect_error); 
+    returnWithError($conn->connect_error); 
 } else{
-    // Make the querry DELETE the contact by using the userID
-    $stmt = $conn->prepare("DELETE FROM Contacts WHERE userID = ?");
-    $stmt->bind_param("i", $userID);
+    // Make the querry DELETE the contact by using the contactID
+    $stmt = $conn->prepare("DELETE FROM Contacts WHERE contactID = ?");
+    $stmt->bind_param("i", $contactID);
     $stmt->execute();
 
     // Check to see if one or more rows were actually deleted
@@ -22,8 +21,8 @@ if ($conn->connect_error) {
         $stmt->close();
         $conn->close();
         returnWithError("");
-    }else{ // If not, there was no contact with userID
-        returnWithError("No contact found with that userID.");
+    }else{ // If not, there was no contact with contactID
+        returnWithError("No contact found with that contactID.");
     }
 }
  
@@ -32,7 +31,7 @@ function getRequestInfo(){
 	return json_decode(file_get_contents('php://input'), true);
 }
 
-function sendResultAsJson($obj){
+function sendResultInfoAsJson($obj){
     header('Content-type: application/json');
 	echo $obj;
 }
