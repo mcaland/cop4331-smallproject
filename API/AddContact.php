@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     returnWithError($conn -> connect_error); 
 } else{
     $stmt = $conn->prepare("INSERT into Contacts (userID,name,email,phoneNum) VALUES(?,?,?,?)");
-    $stmt->bind_param("ssss", $userID, $name, $email, $phoneNum);
+    $stmt->bind_param("isss", $userID, $name, $email, $phoneNum);
     $stmt->execute();
     $stmt->close();
     $conn->close();
@@ -33,7 +33,7 @@ function sendResultAsJson($obj){
 	echo $obj;
 }
 
-function returnError($err){
+function returnWithError($err){
     $retValue = '{"error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
 }
