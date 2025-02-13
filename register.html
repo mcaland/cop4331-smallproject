@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Manager - Register</title>
     <link rel="stylesheet" href="css/register.css">
+    <script type="text/javascript" src="js/code.js"></script>
 </head>
 <body>
     <div class="container">
@@ -22,7 +23,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Choose a password" required>
             </div>
-            <button type="submit" class="register-button">Register</button>
+            <button type="button" class="register-button" onclick="register();">Register</button>
         </form>
         <p>Already have an account? <a href="index.html">Login Here</a></p>
         <div class="error-message" id="error-message"></div>
