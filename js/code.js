@@ -24,11 +24,11 @@ function login() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    document.getElementById("loginStatusTest").innerHTML = "User/Password combination incorrect";
+                    document.getElementById("error-message").innerHTML = "User/Password combination incorrect";
                     return;
                 }
                 else {
-                    document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
+                    document.getElementById("error-message").innerHTML = "Successful login with ID " + id;
                     return;
                 }
             }
@@ -36,6 +36,6 @@ function login() {
         request.send(jsonPayload);
     }
     catch (error) {
-        document.getElementById("loginStatusTest").innerHTML = error.message;
+        document.getElementById("error-message").innerHTML = error.message;
     }
 }
