@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+}
+
+.custom-title {
+    color: white;
+}
+  
+.container {
+    max-width: 800px;
+}
+  
+.table {
+    margin-top: 20px;
+}
+  
+.modal-content {
+    padding: 20px;
+}
+
