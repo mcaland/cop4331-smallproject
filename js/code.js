@@ -3,14 +3,13 @@ const extension = "php";
 
 let id = 0;
 
-function login()
-{
+function login() {
     id = 0;
 
     let username = document.getElementById("userField").value;
     let password = document.getElementById("passField").value;
 
-    let credentials = {username:username, password:password};
+    let credentials = { username: username, password: password };
     let jsonPayload = JSON.stringify(credentials);
 
     let URL = baseURL + "/Login." + extension;
@@ -18,23 +17,17 @@ function login()
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-    {
-        request.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
+    try {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
                 id = jsonObj.userID;
 
-                if (id < 1)
-                {
-                    let error = jsonObj.error;
-                    document.getElementById("loginStatusTest").innerHTML = error;
+                if (id < 1) {
+                    document.getElementById("loginStatusTest").innerHTML = "User/Password combination incorrect";
                     return;
                 }
-                else
-                {
+                else {
                     document.getElementById("loginStatusTest").innerHTML = "Successful login with ID " + id;
                     return;
                 }
@@ -42,8 +35,7 @@ function login()
         };
         request.send(jsonPayload);
     }
-    catch (error)
-    {
+    catch (error) {
         document.getElementById("loginStatusTest").innerHTML = error.message;
     }
 }
