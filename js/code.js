@@ -24,8 +24,8 @@ function login() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    error = jsonObj.error;
-                    document.getElementById("error-message").innerHTML = error;
+                    let errormsg = jsonObj.error;
+                    document.getElementById("error-message").innerHTML = errormsg;
                     return;
                 }
                 else {
