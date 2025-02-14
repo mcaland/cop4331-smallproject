@@ -44,8 +44,8 @@ function login() {
                 else {
                     cache_id_as_cookie();
                     document.getElementById("error-message").innerHTML = "Logged in!";
-                    window.location.href = "contacts.html";
                     window.addEventListener("DOMContentLoaded", function() { search(); }, false);
+                    window.location.href = "contacts.html";
                     return;
                 }
             }
