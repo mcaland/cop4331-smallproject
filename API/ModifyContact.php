@@ -14,15 +14,16 @@ if ($conn->connect_error) {
     $stmt = $conn->prepare("update Contacts set name=?, email=?, phoneNum=? where contactID=?");
     $stmt->bind_param("sssi", $newName, $newEmail, $newPhoneNum, $contactID);
     $stmt->execute();
-    $stmt->$conn->prepare("select contactID from Contacts where contactID=?");
-    $stmt->bind_param("i", $contactID);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    if ($row == null) {
-        returnWithError("No Contact Found");
-    } else {
+    $stmt->close();
+
+    $smtmt = $conn->prepare("select contactID from Contacts where contactID=?");
+    $smtmt->bind_param("i", $contactID);
+    $smtmt->execute();
+    $result = $smtmt->get_result();
+    if ($result->num_rows > 0) {
         returnWithInfo($contactID);
+    } else {
+        returnWithError("No Contact Found");
     }
 }
 
