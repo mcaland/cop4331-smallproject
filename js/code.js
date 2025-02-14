@@ -6,12 +6,14 @@ let contactID = 0;
 
 function cache_id_as_cookie()
 {
-    document.cookie = "userID=" + id + "; contactID=" + contactID;
+    document.cookie = "userID=" + id;
+    document.cookie =  "contactID=" + contactID;
 }
 
 function clear_cookie()
 {
-    document.cookie = "";
+    document.cookie = "userID=" + -1;
+    document.cookie = "contactID=" + -1;
 }
 
 function login() {
