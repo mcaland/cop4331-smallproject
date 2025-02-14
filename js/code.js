@@ -205,7 +205,10 @@ function load_edit_contact(name, email, phone)
         document.getElementById("error-message").innerHTML = error.message;
     }
 
-    document.getElementById("editContactForm").setAttribute("onsubmit", "load_contact('" + name + "', '" + email + "', '" + phone + "', " + "'edit'" + ");");
+    document.getElementById("editContactForm").onsubmit = function() {
+        load_contact(name, email, phone, "edit");
+        return false;
+    }
 }
 
 // TODO: change function name
