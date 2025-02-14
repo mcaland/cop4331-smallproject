@@ -16,15 +16,17 @@ if ($conn->connect_error) {
     $stmt->execute();
     $stmt->close();
 
-    $smtmt = $conn->prepare("select contactID from Contacts where contactID=?");
-    $smtmt->bind_param("i", $contactID);
-    $smtmt->execute();
-    $result = $smtmt->get_result();
+    $stmt = $conn->prepare("select contactID from Contacts where contactID=?");
+    $stmt->bind_param("i", $contactID);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         returnWithInfo($contactID);
     } else {
         returnWithError("No Contact Found");
     }
+    $stmt->close();
+    $conn->close();
 }
 
 function getRequestInfo()
@@ -40,7 +42,7 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = "{'contactID':0, 'error':'" . $err . "'}";
+    $retValue = '{"contactID":0, "error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
 }
 
