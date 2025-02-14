@@ -122,7 +122,7 @@ function search()
                     emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
                     phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
 
-                    let params = "\"" + jsonObj.results[i].split(";")[1].trim() + "\", \"" + jsonObj.results[i].split(";")[2].trim() + "\", \"" + jsonObj.results[i].split(";")[3].trim() + "\"";
+                    let params = "\\\"" + jsonObj.results[i].split(";")[1].trim().trim() + "\\\", \\\"" + jsonObj.results[i].split(";")[2].trim() + "\\\", \\\"" + jsonObj.results[i].split(";")[3].trim() + "\\\"";
 
                     actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"load_contact(" + params + "); delete_contact();\">Delete</button>";
                 }
