@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     // Get the contact information for any contacts that have matching userID and similar to the search term
     $stmt = $conn->prepare("select contactID, name, email, phoneNum from Contacts where name like ? or email like ? or phoneNum like ? and userID=?");
     $search = "%" . $search . "%";
-    $stmt->bind_param("ssss", $search, $search, $search, $userID);
+    $stmt->bind_param("sssi", $search, $search, $search, $userID);
     $stmt->execute();
 
     $result = $stmt->get_result();
