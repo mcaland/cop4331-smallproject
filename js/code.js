@@ -47,7 +47,7 @@ function login() {
                     window.location.href = "contacts.html";
                     window.onload = function() {
                         search();
-                    }
+                    };
                     return;
                 }
             }
@@ -203,7 +203,7 @@ function load_edit_contact(name, email, phone)
                         document.getElementById("editContactForm").onsubmit = function() {
                             load_contact(name, email, phone, "edit");
                             return false;
-                        }
+                        };
                     }
                 }
 
