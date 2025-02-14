@@ -152,7 +152,6 @@ function add_contact()
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
-                document.getElementById("contactsTableBody").innerHTML = "";
 
                 // TODO: error on modal if it doesn't add
 
@@ -216,7 +215,6 @@ function edit_contact()
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
-                document.getElementById("contactsTableBody").innerHTML = "";
 
                 // TODO: error on modal if it doesn't edit
 
@@ -246,7 +244,6 @@ function delete_contact()
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
-                document.getElementById("contactsTableBody").innerHTML = "";
 
                 // TODO: error on modal if it doesn't delete
 
