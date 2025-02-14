@@ -205,7 +205,7 @@ function load_edit_contact(name, email, phone)
         document.getElementById("error-message").innerHTML = error.message;
     }
 
-    document.getElementById("editContactForm").onsubmit = "load_contact(" + name + ", " + email + ", " + phone + ", " + "'edit'" + ");"
+    document.getElementById("editContactForm").setAttribute("onSubmit", "load_contact(" + name + ", " + email + ", " + phone + ", " + "'edit'" + ");");
 }
 
 // TODO: change function name
@@ -231,6 +231,8 @@ function load_contact(name, email, phone, action)
                     if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
                     {
                         contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
+
+                        console.log(action);
 
                         if (action == "delete")
                         {
