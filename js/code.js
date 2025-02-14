@@ -45,6 +45,9 @@ function login() {
                     cache_id_as_cookie();
                     document.getElementById("error-message").innerHTML = "Logged in!";
                     window.location.href = "contacts.html";
+                    window.onload = function() {
+                        search();
+                    }
                     return;
                 }
             }
@@ -180,7 +183,7 @@ function load_edit_contact(name, email, phone)
 
     let searchRequest = { userID: id, search: name };
     let jsonPayload = JSON.stringify(searchRequest);
-    
+
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
