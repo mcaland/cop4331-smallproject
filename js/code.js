@@ -122,7 +122,9 @@ function search()
                     emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
                     phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
 
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this);\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"load_contact(this); delete_contact();\">Delete</button>";
+                    let params = jsonObj.results[i].split(";")[1].trim() + ", " + jsonObj.results[i].split(";")[2].trim() + ", " + jsonObj.results[i].split(";")[3].trim();
+
+                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"load_contact(" + params + "); delete_contact();\">Delete</button>";
                 }
             }
         };
@@ -163,10 +165,39 @@ function add_contact()
     }
 }
 
-function load_contact(element)
+function load_contact(name, email, phone)
 {
-    contactID = element.parentNode.id;
-    console.log(contactID);
+    let searchRequest = { userID: id, search: name };
+    let jsonPayload = JSON.stringify(searchRequest);
+
+    let URL = baseURL + "/SearchContact." + extension;
+
+    let request = new XMLHttpRequest();
+    request.open("POST", URL, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObj = JSON.parse(request.responseText);
+                document.getElementById("contactsTableBody").innerHTML = "";
+
+                for (let i = 0; i < jsonObj.results.length; i++)
+                {
+                    if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
+                    {
+                        contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
+                        return;
+                    }
+                }
+            }
+            contactID = -1;
+            return;
+        };
+        request.send(jsonPayload);
+    }
+    catch (error) {
+        document.getElementById("error-message").innerHTML = error.message;
+    }
     cache_id_as_cookie();
 }
 
