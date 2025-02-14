@@ -12,13 +12,13 @@ if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
     // Make the querry DELETE the contact by using the contactID
-    $stmt = $conn->prepare("DELETE FROM Contacts WHERE contactID = ?");
+    $stmt = $conn->prepare("DELETE FROM Contacts WHERE contactID = ? RETURNING contactID");
     $stmt->bind_param("i", $contactID);
     $stmt->execute();
 
     // Check to see if one or more rows were actually deleted
     if ($stmt->affected_rows > 0) {
-        returnWithError("");
+        returnWithInfo($contactID);
     } else { // If not, there was no contact with contactID
         returnWithError("No contact found with that contactID.");
     }
@@ -36,6 +36,12 @@ function sendResultInfoAsJson($obj)
 {
     header('Content-type: application/json');
     echo $obj;
+}
+
+function returnWithInfo($contactID)
+{
+    $retValue = '{"contactID":' . $contactID . '}';
+    sendResultInfoAsJson($retValue);
 }
 
 function returnWithError($err)
