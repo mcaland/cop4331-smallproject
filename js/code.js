@@ -121,7 +121,8 @@ function search()
                     nameCell.innerHTML = jsonObj.results[i].split(";")[1].trim();
                     emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
                     phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
-                    actionCell.innerHTML = "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>";
+                    actionCell.innerHTML+= "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>";
+                    actionCell.innerHTML+= "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_contact(this.parentNode.id);\">Delete</button>";
                 }
             }
         };
@@ -171,6 +172,7 @@ function load_contact(parentID)
 function edit_contact()
 {
     let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    console.log(contactID);
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
@@ -186,6 +188,36 @@ function edit_contact()
                 document.getElementById("contactsTableBody").innerHTML = "";
 
                 // TODO: error on modal if it doesn't edit
+
+                search(); // update list just in case
+                return;
+            }
+        };
+        request.send(jsonPayload);
+    }
+    catch (error) {
+        document.getElementById("error-message").innerHTML = error.message;
+    }
+}
+
+function delete_contact()
+{
+    let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    let deleteRequest = { contactID: contactID };
+    let jsonPayload = JSON.stringify(deleteRequest);
+
+    let URL = baseURL + "/DeleteContact." + extension;
+
+    let request = new XMLHttpRequest();
+    request.open("POST", URL, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObj = JSON.parse(request.responseText);
+                document.getElementById("contactsTableBody").innerHTML = "";
+
+                // TODO: error on modal if it doesn't delete
 
                 search(); // update list just in case
                 return;
