@@ -45,9 +45,6 @@ function login() {
                     cache_id_as_cookie();
                     document.getElementById("error-message").innerHTML = "Logged in!";
                     window.location.href = "contacts.html";
-                    window.onload = function() {
-                        search();
-                    };
                     return;
                 }
             }
@@ -240,8 +237,6 @@ function load_contact(name, email, phone, action)
                     if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
                     {
                         contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
-
-                        console.log(action);
 
                         if (action == "delete")
                         {
