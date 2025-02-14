@@ -126,7 +126,7 @@ function search()
 
                     let params = "'" + jsonObj.results[i].split(";")[1].trim().trim() + "', '" + jsonObj.results[i].split(";")[2].trim() + "', '" + jsonObj.results[i].split(";")[3].trim() + "'";
 
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_edit_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_wrapper(" + params + ", 'delete');\">Delete</button>";
+                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_edit_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_wrapper(" + params + ");\">Delete</button>";
                 }
             }
         };
@@ -315,5 +315,5 @@ function delete_contact()
 
 function delete_wrapper(name, email, phone)
 {
-    load_contact(name, email, phone);
+    load_contact(name, email, phone, "delete");
 }
