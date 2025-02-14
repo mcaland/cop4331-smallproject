@@ -198,14 +198,15 @@ function load_contact(name, email, phone)
                         contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
                     }
                 }
-            }            
+                
+                cache_id_as_cookie();
+            }
         };
         request.send(jsonPayload);
     }
     catch (error) {
         document.getElementById("error-message").innerHTML = error.message;
     }
-    cache_id_as_cookie();
 }
 
 function edit_contact()
