@@ -182,17 +182,16 @@ function load_contact(name, email, phone)
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
 
+                contactID = -1;
+
                 for (let i = 0; i < jsonObj.results.length; i++)
                 {
                     if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
                     {
                         contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
-                        return;
                     }
                 }
-            }
-            contactID = -1;
-            return;
+            }            
         };
         request.send(jsonPayload);
     }
