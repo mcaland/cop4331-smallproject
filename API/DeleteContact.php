@@ -40,12 +40,12 @@ function sendResultInfoAsJson($obj)
 
 function returnWithInfo($contactID)
 {
-    $retValue = '{"contactID":' . $contactID . '}';
+    $retValue = '{"contactID":"' . $contactID . '","error":""}';
     sendResultInfoAsJson($retValue);
 }
 
 function returnWithError($err)
 {
-    $retValue = '{"error":"' . $err . '"}';
+    $retValue = '{"contactID":0,"error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
 }
