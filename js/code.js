@@ -168,6 +168,10 @@ function add_contact()
 
 function load_contact(name, email, phone)
 {
+    document.getElementById("editName").value = name;
+    document.getElementById("editEmail").value = email;
+    document.getElementById("editPhone").value = phone;
+
     let searchRequest = { userID: id, search: name };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -202,7 +206,7 @@ function load_contact(name, email, phone)
 
 function edit_contact()
 {
-    let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
@@ -231,7 +235,7 @@ function edit_contact()
 
 function delete_contact()
 {
-    let contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let deleteRequest = { contactID: contactID };
     let jsonPayload = JSON.stringify(deleteRequest);
 
