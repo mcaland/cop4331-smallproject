@@ -13,7 +13,7 @@
   <script type="text/javascript" src="js/code.js"></script>
 </head>
 
-<body>
+<body onload="search();">
   <!--Contacts Manager Table-->
   <div class="container mt-5">
     <h1 class="text-center mb-4 custom-title">Contacts Manager</h1>
@@ -46,7 +46,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="addContactForm" onsubmit="add_contact(); return false">
+          <form id="addContactForm" onsubmit="add_contact();">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" id="name" required>
@@ -75,7 +75,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="editContactForm" onsubmit="edit_contact(); return false">
+          <form id="editContactForm" onsubmit="edit_contact();">
             <input type="hidden" id="editId">
             <div class="mb-3">
               <label for="editName" class="form-label">Name</label>

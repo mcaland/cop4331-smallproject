@@ -44,7 +44,6 @@ function login() {
                 else {
                     cache_id_as_cookie();
                     document.getElementById("error-message").innerHTML = "Logged in!";
-                    window.addEventListener("DOMContentLoaded", function() { search(); }, false);
                     window.location.href = "contacts.html";
                     return;
                 }
@@ -200,7 +199,6 @@ function load_edit_contact(name, email, phone)
 
                         document.getElementById("editContactForm").onsubmit = function() {
                             load_contact(name, email, phone, "edit");
-                            return false;
                         };
                     }
                 }
