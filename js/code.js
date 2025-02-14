@@ -122,7 +122,7 @@ function search()
                     emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
                     phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
 
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_contact(this.parentNode.id);\">Delete</button>";
+                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this);\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"load_contact(this); delete_contact();\">Delete</button>";
                 }
             }
         };
@@ -163,10 +163,10 @@ function add_contact()
     }
 }
 
-function load_contact(parentID)
+function load_contact(element)
 {
-    contactID = parentID;
-    console.log(parentID);
+    contactID = element.parentNode.id;
+    console.log(contactID);
     cache_id_as_cookie();
 }
 
