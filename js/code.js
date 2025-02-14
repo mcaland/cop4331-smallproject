@@ -193,6 +193,11 @@ function load_edit_contact(name, email, phone)
                     if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
                     {
                         contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
+                        
+                        document.getElementById("editContactForm").onsubmit = function() {
+                            load_contact(name, email, phone, "edit");
+                            return false;
+                        }
                     }
                 }
 
@@ -203,11 +208,6 @@ function load_edit_contact(name, email, phone)
     }
     catch (error) {
         document.getElementById("error-message").innerHTML = error.message;
-    }
-
-    document.getElementById("editContactForm").onsubmit = function() {
-        load_contact(name, email, phone, "edit");
-        return false;
     }
 }
 
