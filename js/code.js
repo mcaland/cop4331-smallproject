@@ -121,7 +121,8 @@ function search()
                     nameCell.innerHTML = jsonObj.results[i].split(";")[1].trim();
                     emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
                     phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_contact(this.parentNode.id);\">Delete</button>";
+
+                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(this.parentNode.id);\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_contact(this.parentNode.id);\">Delete</button>";
                 }
             }
         };
@@ -165,6 +166,7 @@ function add_contact()
 function load_contact(parentID)
 {
     contactID = parentID;
+    console.log(parentID);
     cache_id_as_cookie();
 }
 
