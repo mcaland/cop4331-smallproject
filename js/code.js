@@ -126,7 +126,7 @@ function search()
 
                     let params = "'" + jsonObj.results[i].split(";")[1].trim().trim() + "', '" + jsonObj.results[i].split(";")[2].trim() + "', '" + jsonObj.results[i].split(";")[3].trim() + "'";
 
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"load_contact(" + params + "); delete_contact();\">Delete</button>";
+                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_wrapper(" + params + ");\">Delete</button>";
                 }
             }
         };
@@ -181,7 +181,6 @@ function load_contact(name, email, phone)
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
-                document.getElementById("contactsTableBody").innerHTML = "";
 
                 for (let i = 0; i < jsonObj.results.length; i++)
                 {
@@ -261,4 +260,10 @@ function delete_contact()
     catch (error) {
         document.getElementById("error-message").innerHTML = error.message;
     }
+}
+
+function delete_wrapper(name, email, phone)
+{
+    load_contact(name, email, phone);
+    delete_contact();
 }
