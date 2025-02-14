@@ -153,6 +153,10 @@ function add_contact()
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
 
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("phone").value = "";
+
                 // TODO: error on modal if it doesn't add
 
                 search(); // update list just in case
@@ -206,7 +210,7 @@ function load_contact(name, email, phone)
 
 function edit_contact()
 {
-    contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    //contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
@@ -235,7 +239,7 @@ function edit_contact()
 
 function delete_contact()
 {
-    contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
+    //contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let deleteRequest = { contactID: contactID };
     let jsonPayload = JSON.stringify(deleteRequest);
 
