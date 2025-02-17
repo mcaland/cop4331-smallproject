@@ -1,93 +1,111 @@
+/* Page background */
 body {
     background-color: #121212;
+    color: white;
+}
+
+/* Centered container */
+.register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    flex-direction: column;
 }
 
-.container {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    display: inline-block;
+/* Register card */
+.register-card {
+    background-color: #1E1E1E;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
 }
 
-h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    text-align: center;
+/* Input fields */
+.form-control {
+    background-color: #333333;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.register-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Placeholder text */
+input::placeholder {
+    color: #bbb;
 }
 
+/* Prevent color change on focus */
+.form-control:focus {
+    background-color: #333333;
+    border: none;
+    box-shadow: none;
+    color: white;
+}
+
+/* Input icons */
+.input-group-text {
+    background-color: transparent !important;
+    border: none;
+    color: white;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Labels */
 label {
     font-size: 14px;
     color: #bbb;
-    margin: 5px 0 2px;
-    text-align: left;
-    width: 200px;
+    margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="password"] {
-    background: #2c2c2c;
-    border: 1px solid #444;
-    border-radius: 5px;
-    padding: 8px;
-    color: #fff;
-    font-size: 14px;
-    outline: none;
-    width: 200px;
-    margin: 5px 0;
-}
-
-input::placeholder {
-    color: #777;
-}
-
-.register-button {
+/* Register button */
+.btn-primary {
     background-color: #4A90E2;
-    color: white;
     border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 200px;
     font-weight: bold;
-    transition: background-color 0.3s;
-    margin: 10px 0;
+    border-radius: 10px;
 }
 
-.register-button:hover {
+.btn-primary:hover {
     background-color: #357ABD;
 }
 
+/* Links */
 a {
     color: #4A90E2;
     text-decoration: none;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #357ABD;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
+/* Full-screen popup overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Popup content box */
+.popup-content {
+    background: #1E1E1E;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide popup initially */
+.d-none {
+    display: none;
 }
