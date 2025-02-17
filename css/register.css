@@ -33,7 +33,7 @@ body {
 
 /* Placeholder text */
 input::placeholder {
-    color: #bbb;
+    color: #bbb !important;
 }
 
 /* Prevent color change on focus */

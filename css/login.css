@@ -31,7 +31,7 @@ body {
 
 /* Placeholder text color (Match Register Page) */
 input::placeholder {
-    color: #777; /* Same gray as the Register Page */
+    color: #777 !important; /* Same gray as the Register Page */
 }
 
 /* Prevent color change on focus */
