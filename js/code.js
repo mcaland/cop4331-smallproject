@@ -16,6 +16,38 @@ function clear_cookie()
     document.cookie = "contactID=" + -1;
 }
 
+function fetch_userID_from_cookie()
+{
+    let userID = 0;
+    let cookieNum = document.cookie.split(";").length;
+
+    for (let i = 0; i < cookieNum; i++)
+    {
+        if (document.cookie.split(";")[i].match("userID="));
+        {
+            userID = parseInt(document.cookie.split(";")[i].split("=")[1]);
+        }
+    }
+
+    return userID;
+}
+
+function fetch_contactID_from_cookie()
+{
+    let contact = 0;
+    let cookieNum = document.cookie.split(";").length;
+
+    for (let i = 0; i < cookieNum; i++)
+    {
+        if (document.cookie.split(";")[i].match("contactID="));
+        {
+            contact = parseInt(document.cookie.split(";")[i].split("=")[1]);
+        }
+    }
+
+    return contact;
+}
+
 function login() {
     id = 0;
 
@@ -95,7 +127,8 @@ function register() {
 
 function search()
 {
-    id = parseInt(document.cookie.split(";")[0].split("=")[1].trim());
+    id = fetch_userID_from_cookie();
+
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
     let jsonPayload = JSON.stringify(searchRequest);
 
@@ -139,7 +172,7 @@ function search()
 
 function add_contact()
 {
-    id = parseInt(document.cookie.split(";")[0].split("=")[1].trim());
+    id = fetch_userID_from_cookie();
     let addRequest = { userID: id, name: document.getElementById("name").value, email: document.getElementById("email").value, phoneNum: document.getElementById("phone").value };
     let jsonPayload = JSON.stringify(addRequest);
 
@@ -261,7 +294,6 @@ function load_contact(name, email, phone, action)
 
 function edit_contact()
 {
-    //contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
     let jsonPayload = JSON.stringify(editRequest);
 
@@ -290,7 +322,6 @@ function edit_contact()
 
 function delete_contact()
 {
-    //contactID = parseInt(document.cookie.split(";")[1].split("=")[1].trim());
     let deleteRequest = { contactID: contactID };
     let jsonPayload = JSON.stringify(deleteRequest);
 
