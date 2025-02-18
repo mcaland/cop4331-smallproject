@@ -1,21 +1,89 @@
+/* Base styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
+    background-color: #121212; /* Dark background */
 }
 
 .custom-title {
     color: white;
 }
-  
+
 .container {
     max-width: 800px;
 }
-  
+
 .table {
     margin-top: 20px;
 }
-  
+
 .modal-content {
     padding: 20px;
 }
 
+/* Round corners, no borders for the table */
+.custom-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+}
+
+/* Make headers and cells dark */
+.custom-table thead th {
+    background-color: #333333; /* Dark header */
+    color: #bbb;
+    border: none !important;
+}
+
+.custom-table tbody td {
+    background-color: #1E1E1E; /* Dark cells */
+    color: #fff;
+    border: none !important;
+}
+
+/* Dark text fields + placeholders (Bootstrap override) */
+.form-control {
+    background-color: #333333;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form-control:focus {
+    background-color: #333333;
+    border: none;
+    box-shadow: none;
+    color: white;
+}
+
+input::placeholder {
+    color: #bbb !important; /* Dark theme placeholders */
+}
+
+/* Apply dark styling specifically for the search box */
+.form-control.search-box {
+    background-color: #333333 !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: none;
+}
+
+.form-control.search-box:focus {
+    background-color: #333333 !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+}
+
+.form-control.search-box::placeholder {
+    color: #bbb !important;
+}
+
+/* Remove the side icon box entirely */
+.search-icon {
+    display: none !important;
+}
