@@ -23,7 +23,7 @@ function fetch_userID_from_cookie()
 
     for (let i = 0; i < cookieNum; i++)
     {
-        if (document.cookie.split(";")[i].match("userID="));
+        if (document.cookie.split(";")[i].match("userID="))
         {
             userID = parseInt(document.cookie.split(";")[i].split("=")[1]);
         }
@@ -39,7 +39,7 @@ function fetch_contactID_from_cookie()
 
     for (let i = 0; i < cookieNum; i++)
     {
-        if (document.cookie.split(";")[i].match("contactID="));
+        if (document.cookie.split(";")[i].match("contactID="))
         {
             contact = parseInt(document.cookie.split(";")[i].split("=")[1]);
         }
