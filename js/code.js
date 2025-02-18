@@ -19,33 +19,20 @@ function clear_cookie()
 function fetch_userID_from_cookie()
 {
     let userID = 0;
-    let cookieNum = document.cookie.split(";").length;
+    let cookies = document.cookie.split(";");
 
-    for (let i = 0; i < cookieNum; i++)
+    for (let i = 0; i < cookies.length; i++)
     {
-        if (document.cookie.split(";")[i].match("userID="))
+        let cookie = cookies[i].trim();
+
+        if (cookie.startsWith("userID="))
         {
-            userID = parseInt(document.cookie.split(";")[i].split("=")[1]);
+            userID = parseInt(cookie.split("=")[1]);
+            break;
         }
     }
 
     return userID;
-}
-
-function fetch_contactID_from_cookie()
-{
-    let contact = 0;
-    let cookieNum = document.cookie.split(";").length;
-
-    for (let i = 0; i < cookieNum; i++)
-    {
-        if (document.cookie.split(";")[i].match("contactID="))
-        {
-            contact = parseInt(document.cookie.split(";")[i].split("=")[1]);
-        }
-    }
-
-    return contact;
 }
 
 function login() {
