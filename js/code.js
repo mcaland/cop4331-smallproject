@@ -49,6 +49,7 @@ function login() {
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -56,22 +57,29 @@ function login() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    let errormsg = jsonObj.error;
-                    document.getElementById("error-message").innerHTML = errormsg;
+                    let errormsg = jsonObj.error || "Invalid username or password.";
+                    
+                    // Display the error message inside the modal
+                    document.getElementById("errorModalBody").innerText = errormsg;
+                    
+                    // Show the error modal
+                    const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+
                     return;
-                }
-                else {
+                } else {
                     cache_id_as_cookie();
-                    document.getElementById("error-message").innerHTML = "Logged in!";
                     window.location.href = "contacts.html";
                     return;
                 }
             }
         };
         request.send(jsonPayload);
-    }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
+    } catch (error) {
+        document.getElementById("errorModalBody").innerText = error.message;
+        
+        const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
     }
 }
 

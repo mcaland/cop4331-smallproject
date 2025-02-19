@@ -76,3 +76,42 @@ a {
 a:hover {
     color: #357ABD;
 }
+/* Ensure modal content matches dark theme */
+.modal-content {
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #4A90E2; /* Subtle blue border */
+}
+
+/* Fix white line by removing modal body padding/margins */
+.modal-body {
+    padding: 15px;
+    border: none !important; /* Remove any default Bootstrap borders */
+}
+
+/* Fix white line under the modal header */
+.modal-header {
+    border-bottom: none !important; /* Removes the white separator */
+}
+
+/* Fix white line above the modal footer */
+.modal-footer {
+    border-top: none !important; /* Removes the white separator */
+}
+
+/* Style close button */
+.btn-close {
+    filter: invert(1); /* Makes the close button visible */
+}
+
+/* Adjust the retry button */
+.modal-footer .btn-danger {
+    background-color: #D9534F; /* Red button */
+    border: none;
+    border-radius: 6px;
+}
+
+.modal-footer .btn-danger:hover {
+    background-color: #C9302C;
+}
