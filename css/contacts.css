@@ -62,8 +62,8 @@ input::placeholder {
     color: #bbb !important; /* Dark theme placeholders */
 }
 
-/* Apply dark styling specifically for the search box */
-.form-control.search-box {
+/* Search Box Styling */
+.input-group .search-box {
     background-color: #333333 !important;
     border: none !important;
     color: white !important;
@@ -72,18 +72,76 @@ input::placeholder {
     box-shadow: none;
 }
 
-.form-control.search-box:focus {
+.input-group .search-box:focus {
     background-color: #333333 !important;
     border: none !important;
     box-shadow: none !important;
     color: white !important;
 }
 
-.form-control.search-box::placeholder {
+.input-group .search-box::placeholder {
     color: #bbb !important;
 }
 
-/* Remove the side icon box entirely */
-.search-icon {
-    display: none !important;
+/* Search Icon Styling */
+.input-group-text.search-icon {
+    background-color: #333333 !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 10px 0 0 10px;
+    padding: 10px 12px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #4A90E2;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #357ABD;
+}
+
+.btn-danger {
+    background-color: #D9534F;
+    border: none;
+    border-radius: 6px;
+}
+
+.btn-danger:hover {
+    background-color: #C9302C;
+}
+
+/* Modal styling */
+.modal-content {
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #4A90E2;
+}
+
+.modal-header {
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+/* Responsive Fix */
+@media (max-width: 576px) {
+    .input-group .search-box {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .input-group-text.search-icon {
+        padding: 8px;
+    }
 }

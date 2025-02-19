@@ -59,15 +59,15 @@ function login() {
                 if (id < 1) {
                     let errormsg = jsonObj.error || "Invalid username or password.";
                     
-                    // Display the error message inside the modal
                     document.getElementById("errorModalBody").innerText = errormsg;
-                    
-                    // Show the error modal
                     const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                     errorModal.show();
 
                     return;
                 } else {
+                    // ✅ Store username in localStorage
+                    localStorage.setItem("username", username);
+
                     cache_id_as_cookie();
                     window.location.href = "contacts.html";
                     return;
@@ -81,7 +81,9 @@ function login() {
         const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
         errorModal.show();
     }
+
 }
+
 
 function register() {
     let username = document.getElementById("username").value;
