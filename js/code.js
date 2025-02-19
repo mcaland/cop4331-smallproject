@@ -95,6 +95,7 @@ function register() {
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -102,23 +103,34 @@ function register() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    let errormsg = jsonObj.error;
-                    document.getElementById("error-message").innerHTML = errormsg;
+                    let errormsg = jsonObj.error || "Username already exists. Please try another.";
+                    
+                    // Show error message inside modal
+                    document.getElementById("errorModalBody").innerText = errormsg;
+                    
+                    // Show the error modal
+                    const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+
                     return;
-                }
-                else {
-                    document.getElementById("error-message").innerHTML = "Account created!";
-                    window.location.href = "index.html";
-                    return;
+                } else {
+                    // Show success popup and redirect to login page
+                    let popup = document.getElementById("success-popup");
+                    popup.classList.remove("d-none");
+                    setTimeout(function() {
+                        window.location.href = "index.html";
+                    }, 2000);
                 }
             }
         };
         request.send(jsonPayload);
-    }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
+    } catch (error) {
+        document.getElementById("errorModalBody").innerText = error.message;
+        const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
     }
 }
+
 
 function search()
 {

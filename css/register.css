@@ -109,3 +109,34 @@ a:hover {
 .d-none {
     display: none;
 }
+
+
+/* Modal styling */
+.modal-content {
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #4A90E2;
+}
+
+.modal-header {
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.btn-close {
+    filter: invert(1); /* Makes close button visible */
+}
+
+.modal-footer .btn-danger {
+    background-color: #D9534F;
+    border: none;
+    border-radius: 6px;
+}
+
+.modal-footer .btn-danger:hover {
+    background-color: #C9302C;
+}
