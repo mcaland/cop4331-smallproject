@@ -1,7 +1,7 @@
-/* Base styling */
+/* Base Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212; /* Dark background */
+    background-color: #121212;
 }
 
 .custom-title {
@@ -16,11 +16,17 @@ body {
     margin-top: 20px;
 }
 
+/* Modal Layout */
 .modal-content {
-    padding: 20px;
+    padding: 30px;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
+    border: none !important;
+    box-shadow: none !important;
 }
 
-/* Round corners, no borders for the table */
+/* Table Styling */
 .custom-table {
     border-collapse: separate;
     border-spacing: 0;
@@ -29,20 +35,19 @@ body {
     border: none;
 }
 
-/* Make headers and cells dark */
 .custom-table thead th {
-    background-color: #333333; /* Dark header */
+    background-color: #333333;
     color: #bbb;
     border: none !important;
 }
 
 .custom-table tbody td {
-    background-color: #1E1E1E; /* Dark cells */
+    background-color: #1E1E1E;
     color: #fff;
     border: none !important;
 }
 
-/* Dark text fields + placeholders (Bootstrap override) */
+/* Fields & Placeholders */
 .form-control {
     background-color: #333333;
     border: none;
@@ -59,10 +64,10 @@ body {
 }
 
 input::placeholder {
-    color: #bbb !important; /* Dark theme placeholders */
+    color: #bbb !important;
 }
 
-/* Search Box Styling */
+/* Search Box */
 .input-group .search-box {
     background-color: #333333 !important;
     border: none !important;
@@ -83,7 +88,7 @@ input::placeholder {
     color: #bbb !important;
 }
 
-/* Search Icon Styling */
+/* Search Icon */
 .input-group-text.search-icon {
     background-color: #333333 !important;
     border: none !important;
@@ -92,7 +97,7 @@ input::placeholder {
     padding: 10px 12px;
 }
 
-/* Name Button Styling */
+/* Name Button */
 .contact-name-btn {
     display: block;
     width: 100%;
@@ -101,17 +106,16 @@ input::placeholder {
     border: none;
     color: white;
     padding: 10px;
-    cursor: pointer;
     font-size: 16px;
+    cursor: pointer;
 }
 
-/* Hover Effect for Name Button */
 .contact-name-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
 }
 
-/* Edit Button */
+/* Buttons */
 .btn-warning {
     background-color: #f0ad4e;
     border: none;
@@ -125,7 +129,6 @@ input::placeholder {
     background-color: #ec971f;
 }
 
-/* Delete Button */
 .btn-danger {
     background-color: #D9534F;
     border: none;
@@ -137,14 +140,7 @@ input::placeholder {
     background-color: #C9302C;
 }
 
-/* Modal styling */
-.modal-content {
-    background-color: #1E1E1E;
-    color: white;
-    border-radius: 10px;
-    border: 1px solid #4A90E2;
-}
-
+/* Modal Elements */
 .modal-header {
     border-bottom: none !important;
 }
@@ -157,14 +153,15 @@ input::placeholder {
     filter: invert(1);
 }
 
-/* Adjust View Contact Modal */
+/* View Contact Modal */
 #viewContactModal .modal-body {
     font-size: 16px;
     color: #ddd;
+    padding: 20px !important;
 }
 
 #viewContactModal .modal-body p {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 #viewContactModal .modal-body strong {
@@ -177,7 +174,6 @@ input::placeholder {
         font-size: 14px;
         padding: 8px;
     }
-
     .input-group-text.search-icon {
         padding: 8px;
     }
