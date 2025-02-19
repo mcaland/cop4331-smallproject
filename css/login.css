@@ -115,3 +115,17 @@ a:hover {
 .modal-footer .btn-danger:hover {
     background-color: #C9302C;
 }
+
+
+.password-toggle {
+    background-color: #333333 !important;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 0 5px 5px 0;
+}
+
+.password-toggle:hover {
+    background-color: rgba(74, 144, 226, 0.3) !important;
+}

@@ -1,10 +1,8 @@
-/* Page background */
 body {
     background-color: #121212;
     color: white;
 }
 
-/* Centered container */
 .register-container {
     display: flex;
     justify-content: center;
@@ -12,7 +10,6 @@ body {
     height: 100vh;
 }
 
-/* Register card */
 .register-card {
     background-color: #1E1E1E;
     padding: 2rem;
@@ -22,7 +19,6 @@ body {
     width: 100%;
 }
 
-/* Input fields */
 .form-control {
     background-color: #333333;
     border: none;
@@ -31,12 +27,10 @@ body {
     padding: 10px;
 }
 
-/* Placeholder text */
 input::placeholder {
     color: #bbb !important;
 }
 
-/* Prevent color change on focus */
 .form-control:focus {
     background-color: #333333;
     border: none;
@@ -44,7 +38,6 @@ input::placeholder {
     color: white;
 }
 
-/* Input icons */
 .input-group-text {
     background-color: transparent !important;
     border: none;
@@ -52,14 +45,12 @@ input::placeholder {
     border-radius: 10px 0 0 10px;
 }
 
-/* Labels */
 label {
     font-size: 14px;
     color: #bbb;
     margin-bottom: 5px;
 }
 
-/* Register button */
 .btn-primary {
     background-color: #4A90E2;
     border: none;
@@ -71,7 +62,6 @@ label {
     background-color: #357ABD;
 }
 
-/* Links */
 a {
     color: #4A90E2;
     text-decoration: none;
@@ -81,7 +71,6 @@ a:hover {
     color: #357ABD;
 }
 
-/* Full-screen popup overlay */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -95,7 +84,6 @@ a:hover {
     z-index: 9999;
 }
 
-/* Popup content box */
 .popup-content {
     background: #1E1E1E;
     padding: 2rem;
@@ -105,13 +93,10 @@ a:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Hide popup initially */
 .d-none {
     display: none;
 }
 
-
-/* Modal styling */
 .modal-content {
     background-color: #1E1E1E;
     color: white;
@@ -128,7 +113,7 @@ a:hover {
 }
 
 .btn-close {
-    filter: invert(1); /* Makes close button visible */
+    filter: invert(1);
 }
 
 .modal-footer .btn-danger {
@@ -139,4 +124,17 @@ a:hover {
 
 .modal-footer .btn-danger:hover {
     background-color: #C9302C;
+}
+
+.password-toggle {
+    background-color: #333333 !important;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 0 5px 5px 0;
+}
+
+.password-toggle:hover {
+    background-color: rgba(74, 144, 226, 0.3) !important;
 }
