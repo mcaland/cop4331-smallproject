@@ -23,7 +23,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid d-flex justify-content-between align-items-center">
       <span class="navbar-brand mb-0 h1">Dashboard</span>
-      <span class="navbar-text text-white" id="usernameDisplay">Hello, User</span>
+      <span class="navbar-text text-white" id="usernameDisplay">Logged in as User</span>
       <button class="btn btn-danger" onclick="logout();">Logout</button>
     </div>
   </nav>
@@ -64,9 +64,6 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody id="contactsTableBody">
@@ -104,32 +101,22 @@
     </div>
   </div>
 
-  <!-- Edit Contact Modal -->
-  <div class="modal fade" id="editContactModal" tabindex="-1">
+  <!-- View Contact Modal -->
+  <div class="modal fade" id="viewContactModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Contact</h5>
+          <h5 class="modal-title">Contact Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="editContactForm" onsubmit="edit_contact(); return false;">
-            <input type="hidden" id="editId" />
-            <div class="mb-3">
-              <label for="editName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="editName" required />
-            </div>
-            <div class="mb-3">
-              <label for="editEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="editEmail" required />
-            </div>
-            <div class="mb-3">
-              <label for="editPhone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="editPhone" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-          </form>
+          <p><strong>Name:</strong> <span id="viewName"></span></p>
+          <p><strong>Email:</strong> <span id="viewEmail"></span></p>
+          <p><strong>Phone:</strong> <span id="viewPhone"></span></p>
         </div>
+        <div class="modal-footer">
+           <button class="btn btn-warning" onclick="load_contact(window.currentContactID, 'edit')">Edit</button>
+<button class="btn btn-danger" onclick="load_contact(window.currentContactID, 'delete')">Delete</button>       </div>
       </div>
     </div>
   </div>
@@ -140,7 +127,7 @@
   <script>
     function logout() {
       localStorage.removeItem("userToken");
-      localStorage.removeItem("username"); // Ensure username is cleared on logout
+      localStorage.removeItem("username");
       sessionStorage.removeItem("userToken");
       window.location.href = "index.html";
     }
@@ -148,13 +135,24 @@
     function displayUsername() {
       let username = localStorage.getItem("username");
 
-      // Ensure username is properly retrieved
       if (!username || username === "undefined" || username === "null") {
-          username = "User"; // Default if not found
+          username = "User";
       }
 
-      document.getElementById("usernameDisplay").innerText = `Logged in as  ${username}`;
+      document.getElementById("usernameDisplay").innerText = `Logged in as ${username}`;
     }
+
+function viewContact(contactID, name, email, phone) {
+    document.getElementById("viewName").innerText = name;
+    document.getElementById("viewEmail").innerText = email;
+    document.getElementById("viewPhone").innerText = phone;
+
+    // Store the contact ID globally for edit and delete actions
+    window.currentContactID = contactID;
+
+    let viewModal = new bootstrap.Modal(document.getElementById("viewContactModal"));
+    viewModal.show();
+} 
   </script>
 
 </body>

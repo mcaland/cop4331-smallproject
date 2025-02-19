@@ -4,34 +4,27 @@ const extension = "php";
 let id = 0;
 let contactID = 0;
 
-function cache_id_as_cookie()
-{
+function cache_id_as_cookie() {
     document.cookie = "userID=" + id + "; path=/";
-    document.cookie =  "contactID=" + contactID + "; path=/";
+    document.cookie = "contactID=" + contactID + "; path=/";
 }
 
-function clear_cookie()
-{
-    document.cookie = "userID=" + -1 + "; path=/";
-    document.cookie = "contactID=" + -1 + "; path=/";
+function clear_cookie() {
+    document.cookie = "userID=-1; path=/";
+    document.cookie = "contactID=-1; path=/";
 }
 
-function fetch_userID_from_cookie()
-{
+function fetch_userID_from_cookie() {
     let userID = 0;
     let cookies = document.cookie.split(";");
 
-    for (let i = 0; i < cookies.length; i++)
-    {
+    for (let i = 0; i < cookies.length; i++) {
         let cookie = cookies[i].trim();
-
-        if (cookie.startsWith("userID="))
-        {
+        if (cookie.startsWith("userID=")) {
             userID = parseInt(cookie.split("=")[1]);
             break;
         }
     }
-
     return userID;
 }
 
@@ -49,7 +42,7 @@ function login() {
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    
+
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -57,33 +50,24 @@ function login() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    let errormsg = jsonObj.error || "Invalid username or password.";
-                    
-                    document.getElementById("errorModalBody").innerText = errormsg;
+                    document.getElementById("errorModalBody").innerText = jsonObj.error || "Invalid username or password.";
                     const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                     errorModal.show();
-
                     return;
                 } else {
-                    // ✅ Store username in localStorage
                     localStorage.setItem("username", username);
-
                     cache_id_as_cookie();
                     window.location.href = "contacts.html";
-                    return;
                 }
             }
         };
         request.send(jsonPayload);
     } catch (error) {
         document.getElementById("errorModalBody").innerText = error.message;
-        
         const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
         errorModal.show();
     }
-
 }
-
 
 function register() {
     let username = document.getElementById("username").value;
@@ -105,23 +89,14 @@ function register() {
                 id = jsonObj.userID;
 
                 if (id < 1) {
-                    let errormsg = jsonObj.error || "Username already exists. Please try another.";
-                    
-                    // Show error message inside modal
-                    document.getElementById("errorModalBody").innerText = errormsg;
-                    
-                    // Show the error modal
+                    document.getElementById("errorModalBody").innerText = jsonObj.error || "Username already exists.";
                     const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                     errorModal.show();
-
                     return;
                 } else {
-                    // Show success popup and redirect to login page
                     let popup = document.getElementById("success-popup");
                     popup.classList.remove("d-none");
-                    setTimeout(function() {
-                        window.location.href = "index.html";
-                    }, 2000);
+                    setTimeout(() => { window.location.href = "index.html"; }, 2000);
                 }
             }
         };
@@ -133,9 +108,7 @@ function register() {
     }
 }
 
-
-function search()
-{
+function search() {
     id = fetch_userID_from_cookie();
 
     let searchRequest = { userID: id, search: document.getElementById("searchInput").value };
@@ -146,218 +119,176 @@ function search()
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
                 document.getElementById("contactsTableBody").innerHTML = "";
 
-                for (let i = 0; i < jsonObj.results.length; i++)
-                {
-                    let row = document.getElementById("contactsTableBody").insertRow()
-                    row.id = parseInt(jsonObj.results[i].split(";")[0].trim());
-
+                for (let i = 0; i < jsonObj.results.length; i++) {
+                    let row = document.getElementById("contactsTableBody").insertRow();
                     let nameCell = row.insertCell(0);
-                    let emailCell = row.insertCell(1);
-                    let phoneCell = row.insertCell(2);
-                    let actionCell = row.insertCell(3);
 
-                    nameCell.innerHTML = jsonObj.results[i].split(";")[1].trim();
-                    emailCell.innerHTML = jsonObj.results[i].split(";")[2].trim();
-                    phoneCell.innerHTML = jsonObj.results[i].split(";")[3].trim();
+                    let contactID = jsonObj.results[i].split(";")[0].trim();
+                    let name = jsonObj.results[i].split(";")[1].trim();
+                    let email = jsonObj.results[i].split(";")[2].trim();
+                    let phone = jsonObj.results[i].split(";")[3].trim();
 
-                    let params = "'" + jsonObj.results[i].split(";")[1].trim().trim() + "', '" + jsonObj.results[i].split(";")[2].trim() + "', '" + jsonObj.results[i].split(";")[3].trim() + "'";
-
-                    actionCell.innerHTML += "<button class=\"btn btn-primary mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#editContactModal\" onclick=\"load_edit_contact(" + params + ");\">Edit</button>\n" + "<button class=\"btn btn-primary mb-3\" style=\"background-color: red;\" data-bs-toggle=\"modal\" onclick=\"delete_wrapper(" + params + ");\">Delete</button>";
+                    nameCell.innerHTML = `<button class="contact-name-btn" onclick="viewContact('${contactID}', '${name}', '${email}', '${phone}')">${name}</button>`;
                 }
             }
         };
         request.send(jsonPayload);
-    }
-    catch (error) {
+    } catch (error) {
         document.getElementById("error-message").innerHTML = error.message;
     }
 }
 
-function add_contact()
-{
-    id = fetch_userID_from_cookie();
-    let addRequest = { userID: id, name: document.getElementById("name").value, email: document.getElementById("email").value, phoneNum: document.getElementById("phone").value };
-    let jsonPayload = JSON.stringify(addRequest);
+function viewContact(contactID, name, email, phone) {
+    document.getElementById("viewName").innerText = name;
+    document.getElementById("viewEmail").innerText = email;
+    document.getElementById("viewPhone").innerText = phone;
 
-    let URL = baseURL + "/AddContact." + extension;
+    document.getElementById("editContactButton").onclick = () => load_contact(contactID, "edit");
+    document.getElementById("deleteContactButton").onclick = () => delete_contact(contactID);
 
-    let request = new XMLHttpRequest();
-    request.open("POST", URL, true);
-    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                let jsonObj = JSON.parse(request.responseText);
+    let viewModal = new bootstrap.Modal(document.getElementById("viewContactModal"));
+    viewModal.show();
+}
 
-                document.getElementById("name").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("phone").value = "";
+function load_contact(contactID, action) {
+    if (!contactID || contactID === -1) {
+        alert("Error: No contact selected.");
+        return;
+    }
 
-                // TODO: error on modal if it doesn't add
+    if (action === "delete") {
+        delete_contact(contactID);
+    } else if (action === "edit") {
+        document.getElementById("editName").value = document.getElementById("viewName").innerText;
+        document.getElementById("editEmail").value = document.getElementById("viewEmail").innerText;
+        document.getElementById("editPhone").value = document.getElementById("viewPhone").innerText;
 
-                search(); // update list just in case
-                return;
-            }
+        document.getElementById("editContactForm").onsubmit = function () {
+            edit_contact(contactID);
+            return false;
         };
-        request.send(jsonPayload);
-    }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
-    }
-}
 
-function load_edit_contact(name, email, phone)
-{
-    document.getElementById("editName").value = name;
-    document.getElementById("editEmail").value = email;
-    document.getElementById("editPhone").value = phone;
-
-    let URL = baseURL + "/SearchContact." + extension;
-
-    let searchRequest = { userID: id, search: name };
-    let jsonPayload = JSON.stringify(searchRequest);
-
-    let request = new XMLHttpRequest();
-    request.open("POST", URL, true);
-    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                let jsonObj = JSON.parse(request.responseText);
-
-                contactID = -1;
-
-                for (let i = 0; i < jsonObj.results.length; i++)
-                {
-                    if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
-                    {
-                        contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
-
-                        document.getElementById("editContactForm").onsubmit = function() {
-                            load_contact(name, email, phone, "edit");
-                            return false;
-                        };
-                    }
-                }
-
-                cache_id_as_cookie();
-            }
-        };
-        request.send(jsonPayload);
-    }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
+        let editModal = new bootstrap.Modal(document.getElementById("editContactModal"));
+        editModal.show();
     }
 }
 
-// TODO: change function name
-function load_contact(name, email, phone, action)
-{
-    let searchRequest = { userID: id, search: name };
-    let jsonPayload = JSON.stringify(searchRequest);
-
-    let URL = baseURL + "/SearchContact." + extension;
-
-    let request = new XMLHttpRequest();
-    request.open("POST", URL, true);
-    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                let jsonObj = JSON.parse(request.responseText);
-
-                contactID = -1;
-
-                for (let i = 0; i < jsonObj.results.length; i++)
-                {
-                    if (jsonObj.results[i].split(";")[1].trim() == name && jsonObj.results[i].split(";")[2].trim() == email && jsonObj.results[i].split(";")[3].trim() == phone)
-                    {
-                        contactID = parseInt(jsonObj.results[i].split(";")[0].trim());
-
-                        if (action == "delete")
-                        {
-                            delete_contact();
-                        }
-                        else if (action == "edit")
-                        {
-                            edit_contact();
-                        }
-                    }
-                }
-
-                cache_id_as_cookie();
-            }
-        };
-        request.send(jsonPayload);
+function edit_contact(contactID) {
+    if (!contactID || contactID === -1) {
+        alert("Error: No contact selected.");
+        return;
     }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
-    }
-}
 
-function edit_contact()
-{
-    let editRequest = { contactID: contactID, newName: document.getElementById("editName").value, newEmail: document.getElementById("editEmail").value, newPhoneNum: document.getElementById("editPhone").value };
+    let editRequest = {
+        contactID: contactID,
+        newName: document.getElementById("editName").value,
+        newEmail: document.getElementById("editEmail").value,
+        newPhoneNum: document.getElementById("editPhone").value
+    };
+
     let jsonPayload = JSON.stringify(editRequest);
-
     let URL = baseURL + "/ModifyContact." + extension;
 
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                let jsonObj = JSON.parse(request.responseText);
-
-                // TODO: error on modal if it doesn't edit
-
-                search(); // update list just in case
-                return;
+                search();
             }
         };
         request.send(jsonPayload);
-    }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
+    } catch (error) {
+        alert("An error occurred: " + error.message);
     }
 }
 
-function delete_contact()
-{
+function delete_contact(contactID) {
+    if (!contactID || contactID === -1) {
+        alert("Error: No contact selected.");
+        return;
+    }
+
     let deleteRequest = { contactID: contactID };
     let jsonPayload = JSON.stringify(deleteRequest);
-
     let URL = baseURL + "/DeleteContact." + extension;
 
     let request = new XMLHttpRequest();
     request.open("POST", URL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                search();
+            }
+        };
+        request.send(jsonPayload);
+    } catch (error) {
+        alert("An error occurred: " + error.message);
+    }
+}
+
+function add_contact() {
+    id = fetch_userID_from_cookie();
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+
+    if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    let addRequest = {
+        userID: id,
+        name: name,
+        email: email,
+        phoneNum: phone
+    };
+
+    let jsonPayload = JSON.stringify(addRequest);
+    let URL = baseURL + "/AddContact." + extension;
+
+    let request = new XMLHttpRequest();
+    request.open("POST", URL, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObj = JSON.parse(request.responseText);
 
-                // TODO: error on modal if it doesn't delete
+                if (jsonObj.error) {
+                    alert("Error: " + jsonObj.error);
+                    return;
+                }
 
-                search(); // update list just in case
-                return;
+                // Clear input fields after successful addition
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("phone").value = "";
+
+                // Close modal
+                let addModal = bootstrap.Modal.getInstance(document.getElementById("addContactModal"));
+                addModal.hide();
+
+                // Refresh contact list
+                search();
             }
         };
         request.send(jsonPayload);
+    } catch (error) {
+        alert("An error occurred: " + error.message);
     }
-    catch (error) {
-        document.getElementById("error-message").innerHTML = error.message;
-    }
-}
-
-function delete_wrapper(name, email, phone)
-{
-    load_contact(name, email, phone, "delete");
 }
