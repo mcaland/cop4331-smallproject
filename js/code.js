@@ -204,6 +204,13 @@ function edit_contact(contactID) {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 search();
+                // Close the Edit Contact Modal
+                let editModal = bootstrap.Modal.getInstance(document.getElementById("editContactModal"));
+                if (editModal) editModal.hide();
+
+                // Close the View Contact Modal
+                let viewModal = bootstrap.Modal.getInstance(document.getElementById("viewContactModal"));
+                if (viewModal) viewModal.hide();
             }
         };
         request.send(jsonPayload);
