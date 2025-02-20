@@ -236,6 +236,13 @@ function delete_contact(contactID) {
     try {
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                // 1) Hide the modal
+                const viewModal = bootstrap.Modal.getInstance(document.getElementById("viewContactModal"));
+                if (viewModal) {
+                  viewModal.hide();
+                }
+
+                // 2) Refresh the contacts list
                 search();
             }
         };
